@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { Provider } from "react-redux";
+import store from './redux/store';
+
+//Screens
+import SignIn from './screens/SignIn';
+import Albums from './screens/Albums';
+import Posts from './screens/Posts';
+import Galery from './screens/Galery';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{
+                  headerShown: false,
+                }}
+                 initialRouteName="SignIn"
+                 >
+      
+          <Stack.Screen name="SignIn" component={SignIn} />
+      
+          <Stack.Screen name="Albums" component={Albums} />
+      
+          <Stack.Screen name="Galery" component={Galery} />
+      
+          <Stack.Screen name="Posts" component={Posts} />
+      
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
